@@ -2,7 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req, res) => {
+router.get("/like", (req, res) => {
+  req.auth.userId;
   res.send("Hello World, user route with GET method");
 });
 

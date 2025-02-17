@@ -1,6 +1,7 @@
 // inicializar server express
 import express from "express";
 import dotenv from "dotenv";
+import { clerkMiddleware } from "@clerk/express";
 
 import { connectDB } from "./lib/db.js";
 
@@ -15,6 +16,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
+
+app.use(express.json()); // to parse json bodies
+app.use(clerkMiddleware()); // this will add the auth object to the request object => req.auth
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
