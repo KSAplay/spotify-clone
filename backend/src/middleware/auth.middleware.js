@@ -21,9 +21,9 @@ export const requireAdmin = async (req, res, next) => {
         .status(403)
         .json({ message: "No autorizado, debe ser administrador" });
     }
-
     next();
   } catch (error) {
-    return res.status(500).json({ message: "Error de servidor" });
+    next(error);
   }
 };
+d;
