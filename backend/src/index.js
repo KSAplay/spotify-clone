@@ -16,6 +16,7 @@ import statRoutes from "./routes/stat.routes.js";
 dotenv.config();
 
 const app = express();
+const __dirname = path.resolve();
 const PORT = process.env.PORT;
 
 app.use(express.json()); // to parse json bodies
@@ -23,7 +24,7 @@ app.use(clerkMiddleware()); // this will add the auth object to the request obje
 app.use(
   fileupload({
     useTempFiles: true,
-    tempFileDir: path.join(__dirname, "temp"),
+    tempFileDir: path.join(__dirname, "tmp"),
     createParentPath: true,
     limits: {
       fileSize: 10 * 1024 * 1024, // 10MB max file size
