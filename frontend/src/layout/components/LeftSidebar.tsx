@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 const LeftSidebar = () => {
   const isLoading = true;
+
   return (
     <div className="flex h-full flex-col gap-2">
       {/* Navigation menu */}
