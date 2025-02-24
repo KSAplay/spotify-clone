@@ -2,6 +2,7 @@ import { SignedIn, SignedOut, SignOutButton } from "@clerk/clerk-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
+import { Button } from "./ui/button";
 
 const TopBar = () => {
   const isAdmin = false;
@@ -18,7 +19,11 @@ const TopBar = () => {
         )}
 
         <SignedIn>
-          <SignOutButton />
+          <SignOutButton>
+            <Button variant={"secondary"} className="cursor-pointer">
+              Cerrar Sesión
+            </Button>
+          </SignOutButton>
         </SignedIn>
 
         <SignedOut>
