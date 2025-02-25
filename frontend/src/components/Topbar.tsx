@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
 import { Button } from "./ui/button";
 
-const TopBar = () => {
+const Topbar = () => {
   const isAdmin = false;
 
   return (
@@ -34,4 +34,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default Topbar;
