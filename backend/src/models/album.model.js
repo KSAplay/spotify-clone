@@ -18,6 +18,10 @@ const albumSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    coverColor: {
+      type: String,
+      required: true,
+    },
     songs: [
       {
         type: mongoose.Schema.Types.ObjectId,

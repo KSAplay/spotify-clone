@@ -136,6 +136,7 @@ const seedDatabase = async () => {
         artist: "Various Artists",
         imageUrl: "/albums/1.jpg",
         releaseYear: 2024,
+        coverColor: "#F71808",
         songs: createdSongs.slice(0, 4).map((song) => song._id),
       },
       {
@@ -143,6 +144,7 @@ const seedDatabase = async () => {
         artist: "Various Artists",
         imageUrl: "/albums/2.jpg",
         releaseYear: 2024,
+        coverColor: "#999999",
         songs: createdSongs.slice(4, 8).map((song) => song._id),
       },
       {
@@ -150,6 +152,7 @@ const seedDatabase = async () => {
         artist: "Various Artists",
         imageUrl: "/albums/3.jpg",
         releaseYear: 2024,
+        coverColor: "#48789F",
         songs: createdSongs.slice(8, 11).map((song) => song._id),
       },
       {
@@ -157,6 +160,7 @@ const seedDatabase = async () => {
         artist: "Various Artists",
         imageUrl: "/albums/4.jpg",
         releaseYear: 2024,
+        coverColor: "#04A6C4",
         songs: createdSongs.slice(11, 14).map((song) => song._id),
       },
     ];
