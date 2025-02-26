@@ -14,7 +14,7 @@ interface MusicStore {
 }
 
 
-export const useMusicStore = create<MusicStore>((set) => ({
+export const useMusicStore = create<MusicStore>((set, get) => ({
   albums: [],
   songs: [],
   isLoading: false,
@@ -22,6 +22,11 @@ export const useMusicStore = create<MusicStore>((set) => ({
   currentAlbum: null,
 
   fetchAlbums: async () => {
+    const { albums } = get();
+    console.log({ albums });
+
+    if (albums.length > 0) return;
+
     set({ isLoading: true, error: null });
 
     try {

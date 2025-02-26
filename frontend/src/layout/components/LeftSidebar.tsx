@@ -12,8 +12,10 @@ const LeftSidebar = () => {
   const { albums, fetchAlbums, isLoading } = useMusicStore();
 
   useEffect(() => {
-    fetchAlbums();
-  }, [fetchAlbums]);
+    if (albums.length === 0) {
+      fetchAlbums();
+    }
+  }, [fetchAlbums, albums.length]);
 
   //console.log({ albums });
 
@@ -64,7 +66,7 @@ const LeftSidebar = () => {
 
         <ScrollArea className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {isLoading ? (
+            {isLoading && albums.length === 0 ? (
               <PlaylistSkeleton />
             ) : (
               albums.map((album) => (
