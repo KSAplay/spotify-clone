@@ -11,7 +11,7 @@ const AlbumPage = () => {
   const { albumId } = useParams();
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
   // const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
-  const [bgColorTop, setBgColorTop] = useState("#082040FF");
+  const [textColor, setTextColor] = useState("#082040FF");
   // const [bgColorBottom, setBgColorBottom] = useState("#5038a0");;
 
   useEffect(() => {
@@ -19,31 +19,25 @@ const AlbumPage = () => {
   }, [fetchAlbumById, albumId]);
 
   useEffect(() => {
-    setBgColorTop(lightenColor(currentAlbum?.coverColor || "#FFFFFF"));
-  }, [bgColorTop, currentAlbum]);
+    setTextColor(lightenColor(currentAlbum?.coverColor || "#FFFFFF"));
+  }, [setTextColor, currentAlbum]);
 
   if (isLoading) return null;
 
   return (
     <div className="h-full">
-      {/* TODO: Arreglar que el fondo degradado no se encoja al reducir la altura */}
       <ScrollArea className="relative h-full rounded-lg bg-zinc-900">
         {/* Background gradient */}
         <div
           className="absolute inset-0 z-0 h-[1000px] rounded-lg"
           style={{
-            background: `linear-gradient(180deg, ${bgColorTop} 0%, #18181b 45%, #18181b 100%)`,
+            background: `linear-gradient(180deg, ${currentAlbum?.coverColor} 0%, #18181b 45%, #18181b 100%)`,
           }}
           aria-hidden="true"
         />
         {/* Content */}
         <div className="relative z-10">
           <div className={`relative flex gap-6 p-6 pb-8`}>
-            {/* bg gradient part one
-            <div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-b from-zinc-900/0 to-zinc-900/30"
-              aria-hidden="true"
-            /> */}
             <img
               src={currentAlbum?.imageUrl}
               alt={currentAlbum?.title}
@@ -56,16 +50,16 @@ const AlbumPage = () => {
                 <span className="font-bold text-white">
                   {currentAlbum?.artist}
                 </span>
-                <span className="text-white" style={{ color: bgColorTop }}>
+                <span className="text-white" style={{ color: textColor }}>
                   •
                 </span>
-                <span className="text-white" style={{ color: bgColorTop }}>
+                <span className="text-white" style={{ color: textColor }}>
                   {currentAlbum?.releaseYear}
                 </span>
-                <span className="text-white" style={{ color: bgColorTop }}>
+                <span className="text-white" style={{ color: textColor }}>
                   •
                 </span>
-                <span className="text-white" style={{ color: bgColorTop }}>
+                <span className="text-white" style={{ color: textColor }}>
                   {currentAlbum?.songs.length} canciones
                 </span>
               </div>
@@ -99,14 +93,14 @@ const AlbumPage = () => {
           {/* Table Section */}
           <div className="bg-black/30 backdrop-blur-sm">
             {/* table header */}
-            <div className="grid grid-cols-[16px_4fr_2fr_1fr] gap-4 border-b border-white/5 px-10 py-2 text-sm text-zinc-400">
+            <div className="grid grid-cols-[16px_3fr_4fr_0.3fr] gap-4 border-b border-white/5 px-10 py-2 text-sm text-zinc-400">
               <div>#</div>
               <div>Título</div>
               <div className="flex items-center justify-center">
                 Fecha de lanzamiento
               </div>
-              <div className="flex items-center justify-end">
-                <Clock className="h-4 w-4" />
+              <div className="flex items-center justify-center">
+                <Clock className="size-4" />
               </div>
             </div>
 
@@ -120,7 +114,7 @@ const AlbumPage = () => {
                     <div
                       key={song._id}
                       //onClick={() => handlePlaySong(index)}
-                      className={`group grid cursor-pointer grid-cols-[16px_4fr_2fr_1fr] gap-4 rounded-md px-4 py-2 text-sm text-zinc-400 hover:bg-white/5`}
+                      className={`group grid cursor-pointer grid-cols-[16px_3fr_4fr_0.3fr] gap-4 rounded-md px-4 py-2 text-sm text-zinc-400 hover:bg-white/5`}
                     >
                       <div className="flex items-center justify-center">
                         {/*{isCurrentSong && isPlaying ? (
@@ -130,8 +124,8 @@ const AlbumPage = () => {
                         {/*)}
                           {!isCurrentSong && (*/}
                         <Play
-                          className="hidden h-4 w-4 group-hover:block"
-                          fill="#9f9fa9"
+                          className="hidden h-4 w-4 text-white group-hover:block"
+                          fill="white"
                         />
                         {/*)})*/}
                       </div>
@@ -153,8 +147,11 @@ const AlbumPage = () => {
                       <div className="flex items-center justify-center">
                         {song.createdAt.split("T")[0]}
                       </div>
-                      <div className="flex items-center justify-end">
+                      <div className="relative flex items-center justify-center">
                         {formatDuration(song.duration)}
+                        <div className="absolute -left-8 hidden items-center justify-center group-hover:flex">
+                          <CirclePlus className="size-5" />
+                        </div>
                       </div>
                     </div>
                   );
