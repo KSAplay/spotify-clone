@@ -6,7 +6,6 @@ import {
 import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
 import { useEffect, useState } from "react";
-import Topbar from "@/components/Topbar";
 import FriendsActivity from "./components/FriendsActivity";
 
 const MainLayout = () => {
@@ -24,7 +23,6 @@ const MainLayout = () => {
 
   return (
     <div className="flex h-screen flex-col bg-black text-white">
-      <Topbar />
       <ResizablePanelGroup
         direction="horizontal"
         className="flex h-full flex-1 overflow-hidden p-2"

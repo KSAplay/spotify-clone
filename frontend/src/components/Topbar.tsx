@@ -8,7 +8,7 @@ const Topbar = () => {
   const isAdmin = false;
 
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between bg-zinc-900/75 p-4 backdrop-blur-md">
+    <div className="sticky top-0 z-10 flex items-center justify-between rounded-lg bg-zinc-900 p-4 backdrop-blur-md">
       <div className="flex items-center gap-2">Spotify</div>
       <div className="flex items-center gap-4">
         {isAdmin && (
