@@ -23,7 +23,6 @@ export const useMusicStore = create<MusicStore>((set, get) => ({
 
   fetchAlbums: async () => {
     const { albums } = get();
-    console.log({ albums });
 
     if (albums.length > 0) return;
 
