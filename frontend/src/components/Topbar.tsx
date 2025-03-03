@@ -1,34 +1,35 @@
-import { SignedIn, SignedOut, SignOutButton } from "@clerk/clerk-react";
+import { SignedOut, UserButton } from "@clerk/clerk-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
-import { Button } from "./ui/button";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "./ui/button";
 
 const Topbar = () => {
-  const isAdmin = false;
+  const { isAdmin } = useAuthStore();
 
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between rounded-lg bg-zinc-900 p-4 backdrop-blur-md">
-      <div className="flex items-center gap-2">Spotify</div>
+    <div className="sticky top-0 z-10 flex items-center justify-between bg-zinc-950/60 p-4">
+      <div className="flex items-center gap-2">
+        <img src="/spotify.png" className="size-8" alt="Spotify logo" />
+      </div>
       <div className="flex items-center gap-4">
         {isAdmin && (
-          <Link to="/admin" className="text-white">
+          <Link
+            to="/admin"
+            className={cn(buttonVariants({ variant: "outline" }))}
+          >
             <LayoutDashboardIcon className="mr-2 size-4" />
-            Admin Dashboard
+            Panel de Administración
           </Link>
         )}
-
-        <SignedIn>
-          <SignOutButton>
-            <Button variant={"secondary"} className="cursor-pointer">
-              Cerrar Sesión
-            </Button>
-          </SignOutButton>
-        </SignedIn>
 
         <SignedOut>
           <SignInOAuthButtons />
         </SignedOut>
+
+        <UserButton />
       </div>
     </div>
   );
