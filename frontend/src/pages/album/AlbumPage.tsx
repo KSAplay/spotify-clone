@@ -2,17 +2,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Play, Ellipsis, CirclePlus, Clock } from "lucide-react";
+import { Play, Ellipsis, CirclePlus, Clock, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { lightenColor } from "@/utils/lightenColor";
 import { formatDuration } from "@/utils/formatDuration";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const AlbumPage = () => {
   const { albumId } = useParams();
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
-  // const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
+  const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
   const [textColor, setTextColor] = useState("#082040FF");
-  // const [bgColorBottom, setBgColorBottom] = useState("#5038a0");;
 
   useEffect(() => {
     if (albumId) fetchAlbumById(albumId);
@@ -23,6 +23,24 @@ const AlbumPage = () => {
   }, [setTextColor, currentAlbum]);
 
   if (isLoading) return null;
+
+  const handlePlayAlbum = () => {
+    if (!currentAlbum) return;
+    const isCurrentAlbumPlaying = currentAlbum?.songs.some(
+      (song) => song._id === currentSong?._id,
+    );
+
+    if (isCurrentAlbumPlaying) togglePlay();
+    else {
+      // start playing the album from the beginning
+      playAlbum(currentAlbum?.songs, 0);
+    }
+  };
+
+  const handlePlaySong = (index: number) => {
+    if (!currentAlbum) return;
+    playAlbum(currentAlbum?.songs, index);
+  };
 
   return (
     <div className="h-full">
@@ -69,10 +87,18 @@ const AlbumPage = () => {
           {/* Play Button */}
           <div className="flex items-center gap-6 bg-black/30 p-6 backdrop-blur-sm">
             <Button
+              onClick={handlePlayAlbum}
               size="icon"
               className="h-14 w-14 cursor-pointer rounded-full bg-green-500 transition-all duration-75 hover:scale-105 hover:bg-green-400"
             >
-              <Play className="size-6 text-black" fill="black" />
+              {isPlaying &&
+              currentAlbum?.songs.some(
+                (song) => song._id === currentSong?._id,
+              ) ? (
+                <Pause className="size-6 text-black" fill="black" />
+              ) : (
+                <Play className="size-6 text-black" fill="black" />
+              )}
             </Button>
             <Button
               size="icon"
@@ -109,25 +135,27 @@ const AlbumPage = () => {
             <div className="px-6">
               <div className="space-y-2 py-4">
                 {currentAlbum?.songs.map((song, index) => {
-                  //const isCurrentSong = currentSong?._id === song._id;
+                  const isCurrentSong = currentSong?._id === song._id;
                   return (
                     <div
                       key={song._id}
-                      //onClick={() => handlePlaySong(index)}
+                      onClick={() => handlePlaySong(index)}
                       className={`group grid cursor-pointer grid-cols-[16px_3fr_4fr_0.3fr] gap-4 rounded-md px-4 py-2 text-sm text-zinc-400 hover:bg-white/5`}
                     >
                       <div className="flex items-center justify-center">
-                        {/*{isCurrentSong && isPlaying ? (
-                            <div className="size-4 text-green-500">♫</div>
-                          ) : (*/}
-                        <span className="group-hover:hidden">{index + 1}</span>
-                        {/*)}
-                          {!isCurrentSong && (*/}
-                        <Play
-                          className="hidden h-4 w-4 text-white group-hover:block"
-                          fill="white"
-                        />
-                        {/*)})*/}
+                        {isCurrentSong && isPlaying ? (
+                          <div className="size-4 text-green-500">♫</div>
+                        ) : (
+                          <span className="group-hover:hidden">
+                            {index + 1}
+                          </span>
+                        )}
+                        {!isCurrentSong && (
+                          <Play
+                            className="hidden h-4 w-4 text-white group-hover:block"
+                            fill="white"
+                          />
+                        )}
                       </div>
 
                       <div className="flex items-center gap-3">
