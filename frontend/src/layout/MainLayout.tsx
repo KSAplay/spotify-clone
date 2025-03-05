@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 import LeftSidebar from "./components/LeftSidebar";
 import { useEffect, useState } from "react";
 import FriendsActivity from "./components/FriendsActivity";
-import AudioPlayer from "@/pages/home/components/AudioPlayer";
+import AudioPlayer from "@/layout/components/AudioPlayer";
 
 const MainLayout = () => {
   const [isMobile, setIsMobile] = useState(false);
