@@ -207,21 +207,21 @@ const PlaybackControls = () => {
             variant="ghost"
             className="cursor-pointer text-zinc-400 hover:text-white"
           >
-            <Mic2 className="h-4 w-4" />
+            <Mic2 className="size-5" />
           </Button>
           <Button
             size="icon"
             variant="ghost"
             className="cursor-pointer text-zinc-400 hover:text-white"
           >
-            <ListMusic className="h-4 w-4" />
+            <ListMusic className="size-5" />
           </Button>
           <Button
             size="icon"
             variant="ghost"
             className="cursor-pointer text-zinc-400 hover:text-white"
           >
-            <Laptop2 className="h-4 w-4" />
+            <Laptop2 className="size-5" />
           </Button>
 
           <div className="flex items-center gap-2">
@@ -232,13 +232,13 @@ const PlaybackControls = () => {
               onClick={handleMuted}
             >
               {isMuted || volume === 0 ? (
-                <VolumeX className="h-4 w-4" />
+                <VolumeX className="size-5" />
               ) : volume < 20 ? (
-                <Volume className="h-4 w-4" />
+                <Volume className="size-5" />
               ) : volume < 40 ? (
-                <Volume1 className="h-4 w-4" />
+                <Volume1 className="size-5" />
               ) : (
-                <Volume2 className="h-4 w-4" />
+                <Volume2 className="size-5" />
               )}
             </Button>
 
