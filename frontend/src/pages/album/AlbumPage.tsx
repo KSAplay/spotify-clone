@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Play, Ellipsis, CirclePlus, Clock, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { lightenColor } from "@/utils/lightenColor";
-import { formatDuration } from "@/utils/formatDuration";
+import { formatTime } from "@/utils/formatTime";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const AlbumPage = () => {
@@ -176,7 +176,7 @@ const AlbumPage = () => {
                         {song.createdAt.split("T")[0]}
                       </div>
                       <div className="relative flex items-center justify-center">
-                        {formatDuration(song.duration)}
+                        {formatTime(song.duration)}
                         <div className="absolute -left-8 hidden items-center justify-center group-hover:flex">
                           <CirclePlus className="size-5" />
                         </div>
