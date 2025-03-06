@@ -12,7 +12,11 @@ const Topbar = () => {
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between bg-zinc-950/60 p-4">
       <div className="flex items-center gap-2">
-        <img src="/spotify.png" className="size-8" alt="Spotify logo" />
+        <img
+          src="/spotify-white.svg"
+          className="size-8"
+          alt="Logo de Spotify"
+        />
       </div>
       <div className="flex items-center gap-4">
         {isAdmin && (
