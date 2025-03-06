@@ -41,15 +41,6 @@ const PlaybackControls = () => {
   };
 
   useEffect(() => {
-    // change the color of a slider thumb from a span with data "slider-thumb" in <Slider/>
-    const sliderThumb = document.querySelector('[data-slot="slider-thumb"]');
-    if (sliderThumb) {
-      sliderThumb.setAttribute(
-        "background",
-        isPlaying ? "oklch(0.765 0.177 163.223)" : "black",
-      );
-    }
-
     audioRef.current = document.querySelector("audio");
     const audio = audioRef.current;
     if (!audio) return;
@@ -134,7 +125,7 @@ const PlaybackControls = () => {
               size="icon"
               variant="ghost"
               onClick={handleShuffle}
-              className={`group hidden cursor-pointer transition hover:bg-zinc-900 sm:inline-flex ${isShuffle ? "text-emerald-400 hover:text-emerald-400" : "text-zinc-400 hover:text-white"}`}
+              className={`group hidden cursor-pointer hover:bg-zinc-900 sm:inline-flex ${isShuffle ? "text-emerald-400 hover:text-emerald-400" : "text-zinc-400 hover:text-white"}`}
             >
               <Shuffle className="size-5 group-hover:scale-105 group-active:scale-90" />
             </Button>
@@ -142,19 +133,16 @@ const PlaybackControls = () => {
             <Button
               size="icon"
               variant="ghost"
-              className="group cursor-pointer text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
+              className="group cursor-pointer text-zinc-400 hover:bg-zinc-900 hover:text-white"
               onClick={playPrevious}
               disabled={!currentSong}
             >
-              <SkipBack
-                className="size-5 group-hover:scale-105 group-active:scale-90 group-active:text-emerald-400"
-                fill="#9f9fa9"
-              />
+              <SkipBack className="size-5 fill-zinc-400 stroke-zinc-400 group-hover:scale-105 group-hover:fill-white group-hover:stroke-white group-active:scale-90 group-active:fill-emerald-400 group-active:stroke-emerald-400" />
             </Button>
 
             <Button
               size="icon"
-              className="group size-9 cursor-pointer rounded-full bg-white text-black transition hover:bg-white/80"
+              className="group size-9 cursor-pointer rounded-full bg-white text-black hover:bg-white/80"
               onClick={togglePlay}
               disabled={!currentSong}
             >
@@ -173,20 +161,17 @@ const PlaybackControls = () => {
             <Button
               size="icon"
               variant="ghost"
-              className="group cursor-pointer text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
+              className="group cursor-pointer hover:bg-zinc-900 hover:text-white"
               onClick={playNext}
               disabled={!currentSong}
             >
-              <SkipForward
-                className="size-5 group-hover:scale-105 group-active:scale-90 group-active:text-emerald-400"
-                fill="#9f9fa9"
-              />
+              <SkipForward className="size-5 fill-zinc-400 stroke-zinc-400 group-hover:scale-105 group-hover:fill-white group-hover:stroke-white group-active:scale-90 group-active:fill-emerald-400 group-active:stroke-emerald-400" />
             </Button>
             <Button
               size="icon"
               variant="ghost"
               onClick={toggleRepeatMode}
-              className={`group hidden cursor-pointer transition hover:bg-zinc-900 hover:text-white sm:inline-flex ${repeatMode !== "off" ? "text-emerald-400 hover:text-emerald-400" : "text-zinc-400"}`}
+              className={`group hidden cursor-pointer hover:bg-zinc-900 hover:text-white sm:inline-flex ${repeatMode !== "off" ? "text-emerald-400 hover:text-emerald-400" : "text-zinc-400"}`}
             >
               {repeatMode === "one" ? (
                 <Repeat1 className="size-5 group-hover:scale-105 group-active:scale-90" />
@@ -196,7 +181,7 @@ const PlaybackControls = () => {
             </Button>
           </div>
 
-          <div className="hidden w-full items-center gap-2 sm:flex">
+          <div className="group hidden w-full items-center gap-2 sm:flex">
             <div className="text-xs text-zinc-400">
               {formatTime(currentTime)}
             </div>
@@ -204,7 +189,7 @@ const PlaybackControls = () => {
               value={[currentTime]}
               max={duration || 100}
               step={1}
-              className="w-full hover:cursor-grab active:cursor-grabbing"
+              className="w-full cursor-pointer"
               onPointerDown={handleAudioSeek}
               onPointerUp={handleAudioSeek}
               onValueChange={handleSeek}
@@ -262,7 +247,7 @@ const PlaybackControls = () => {
               max={100}
               step={1}
               disabled={isMuted}
-              className="w-24 hover:cursor-grab active:cursor-grabbing sm:w-32"
+              className="group w-24 hover:cursor-pointer sm:w-32"
               onValueChange={(value) => {
                 setVolume(value[0]);
                 if (audioRef.current) {
