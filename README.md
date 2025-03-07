@@ -1,6 +1,6 @@
 # Spotify Clone
 
-Este proyecto es un clon de Spotify construido utilizando el stack MERN (MongoDB, Express, React, Node.js), Tailwind CSS y Vite.
+Este proyecto es un clon de Spotify construido utilizando el stack MERN (MongoDB, Express, React, Node.js), Tailwind v4 y Vite.
 
 ## Tecnologías Utilizadas
 
@@ -10,6 +10,8 @@ Este proyecto es un clon de Spotify construido utilizando el stack MERN (MongoDB
 - **Node.js**: Entorno de ejecución para el backend.
 - **Tailwind CSS**: Framework de CSS para estilizar la aplicación.
 - **Vite**: Herramienta de construcción rápida para proyectos de frontend.
+- **Cloudinary**: Servicio de almacenamiento y gestión de imágenes y videos en la nube.
+- **Clerk**: Servicio de autenticación y gestión de usuarios.
 
 ## Instalación
 
@@ -30,6 +32,7 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
    ```
 
 3. Instala las dependencias del frontend:
+
    ```bash
    cd ../frontend
    npm install
@@ -42,6 +45,17 @@ Crea un archivo `.env` en la carpeta `backend` con las siguientes variables de e
 ```
 MONGO_URI=tu_mongo_uri
 JWT_SECRET=tu_jwt_secret
+CLOUDINARY_CLOUD_NAME=tu_cloudinary_cloud_name
+CLOUDINARY_API_KEY=tu_cloudinary_api_key
+CLOUDINARY_API_SECRET=tu_cloudinary_api_secret
+ADMIN_EMAIL=tu_admin_email
+PORT=5000
+```
+
+Crea un archivo `.env.local` en la carpeta `frontend` con las siguientes variables de entorno:
+
+```
+VITE_CLERK_PUBLISHABLE_KEY=tu_clerk_publishable_key
 ```
 
 ## Ejecución
@@ -65,16 +79,54 @@ npm run dev
 ```
 spotify-clone/
 ├── backend/        # Código del servidor backend
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── lib/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── seeds/
+│   ├── .env
+│   ├── .gitignore
+│   └── package.json
 ├── frontend/       # Código del cliente frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── layout/
+│   │   ├── pages/
+│   │   ├── stores/
+│   │   ├── types/
+│   │   ├── utils/
+│   │   └── main.tsx
+│   ├── .env.local
+│   ├── .gitignore
+│   ├── components.json
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── README.md
+│   ├── tailwind.config.js
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── LICENSE         # Archivo de licencia
 └── README.md       # Este archivo
 ```
 
 ## Características
 
-- Autenticación de usuarios (registro e inicio de sesión)
+- Autenticación de usuarios con Google
 - Creación y gestión de playlists
 - Reproducción de canciones
-- Búsqueda de canciones y artistas
+- Búsqueda avanzada de canciones y artistas (🚧 en desarrollo)
+- Subida y gestión de canciones (🚧 en desarrollo)
+- Interfaz de usuario responsiva y moderna
+- Soporte para múltiples idiomas (🚧 en desarrollo)
+- Notificaciones en tiempo real (🚧 en desarrollo)
+- Visualización de usuarios conectados y lo que están escuchando (🚧 en desarrollo)
+- Chat en tiempo real con otros usuarios (🚧 en desarrollo)
+- Modo oscuro y claro (🚧 en desarrollo)
 
 ## Contribuciones
 
