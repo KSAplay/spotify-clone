@@ -20,7 +20,7 @@ interface MusicStore {
 }
 
 
-export const useMusicStore = create<MusicStore>((set, get) => ({
+export const useMusicStore = create<MusicStore>((set) => ({
   albums: [],
   songs: [],
   isLoading: false,
@@ -31,10 +31,6 @@ export const useMusicStore = create<MusicStore>((set, get) => ({
   trendingSongs: [],
 
   fetchAlbums: async () => {
-    const { albums } = get();
-
-    if (albums.length > 0) return;
-
     set({ isLoading: true, error: null });
 
     try {

@@ -17,8 +17,6 @@ const LeftSidebar = () => {
     }
   }, [fetchAlbums, albums.length]);
 
-  //console.log({ albums });
-
   return (
     <div className="flex h-full flex-col gap-2">
       {/* Navigation menu */}
