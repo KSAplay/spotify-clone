@@ -5,7 +5,7 @@ import { create } from 'zustand';
 interface MusicStore {
   albums: Album[];
   songs: Song[];
-  stats: Stats | null;
+  stats: Stats;
   isLoading: boolean;
   error: string | null;
   currentAlbum: Album | null;
