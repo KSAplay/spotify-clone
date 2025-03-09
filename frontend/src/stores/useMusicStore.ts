@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/lib/axios';
 import { Album, Song, Stats } from '@/types';
 import { create } from 'zustand';
+import { toast } from 'sonner'
 
 interface MusicStore {
   albums: Album[];
@@ -20,6 +21,9 @@ interface MusicStore {
   fetchFeaturedSongs: () => Promise<void>;
   fetchMadeForYouSongs: () => Promise<void>;
   fetchTrendingSongs: () => Promise<void>;
+
+  deleteSong: (id: string) => Promise<void>;
+  deleteAlbum: (id: string) => Promise<void>;
 }
 
 
@@ -57,7 +61,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
 
     try {
       const response = await axiosInstance.get('/stats');
-      console.log(response.data);
+      set({ stats: response.data });
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
@@ -125,6 +129,41 @@ export const useMusicStore = create<MusicStore>((set) => ({
       set({ trendingSongs: response.data });
     } catch (error: any) {
       set({ error: error.response.data.message });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  deleteSong: async (id) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.delete(`/admin/songs/${id}`);
+
+      set((state) => ({
+        songs: state.songs.filter((song) => song._id !== id),
+      }));
+      toast.success("Canción eliminada con éxito");
+    } catch (error: any) {
+      console.log("Error al eliminar la canción", error);
+      toast.error("Error al eliminar la canción");
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  deleteAlbum: async (id) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axiosInstance.delete(`/admin/albums/${id}`);
+      set((state) => ({
+        albums: state.albums.filter((album) => album._id !== id),
+        songs: state.songs.map((song) =>
+          song.albumId === state.albums.find((a) => a._id === id)?.title ? { ...song, album: null } : song
+        ),
+      }));
+      toast.success("Álbum eliminado con éxito");
+    } catch (error: any) {
+      toast.error("Error al eliminar el álbum: " + error.message);
     } finally {
       set({ isLoading: false });
     }
