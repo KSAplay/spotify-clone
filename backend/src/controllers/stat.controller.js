@@ -16,9 +16,13 @@ export const getStats = async (req, res, next) => {
               coll: "albums",
               pipeline: [],
             },
+          },
+          {
             $group: {
               _id: "$artist",
             },
+          },
+          {
             $count: "count",
           },
         ]),
