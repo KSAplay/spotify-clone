@@ -16,8 +16,8 @@ const StatsCard = ({
   value,
 }: StatsCardProps) => {
   return (
-    <Card className="border-zinc-800/50 bg-zinc-900/50 transition-colors hover:bg-zinc-800/40">
-      <CardContent className="p-6">
+    <Card className="flex items-center border-zinc-800/50 bg-zinc-900/50 transition-colors hover:bg-zinc-800/40 md:items-start">
+      <CardContent className="p-2 md:p-6">
         <div className="flex items-center gap-4">
           <div className={`rounded-lg p-3 ${bgColor}`}>
             <Icon className={`size-6 ${iconColor}`} />
