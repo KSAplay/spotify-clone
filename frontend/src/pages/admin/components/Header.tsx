@@ -7,7 +7,7 @@ const Header = () => {
     <div className="flex items-center justify-between">
       <div className="mb-8 flex items-center gap-3">
         <Link to="/" className="group">
-          <ArrowLeft className="size-10 text-white transition-transform group-hover:-translate-x-1" />
+          <ArrowLeft className="size-8 text-white transition-transform group-hover:-translate-x-1" />
         </Link>
         <Link to="/" className="rounded-lg">
           <img src="/spotify.svg" className="size-10 text-black" />
