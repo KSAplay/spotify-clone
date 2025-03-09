@@ -11,7 +11,7 @@ import { Toaster } from "sonner";
 function App() {
   return (
     <>
-      <Toaster position="top-center" closeButton />
+      <Toaster position="top-center" richColors />
       <Routes>
         <Route
           path="/sso-callback"
