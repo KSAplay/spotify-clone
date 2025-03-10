@@ -85,8 +85,12 @@ const PlaybackControls = () => {
 
   const handleMuted = () => {
     if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.volume = volume / 100;
+      } else {
+        audioRef.current.volume = 0;
+      }
       setIsMuted(!isMuted);
-      audioRef.current.muted = !audioRef.current.muted;
     }
   };
 
@@ -228,7 +232,7 @@ const PlaybackControls = () => {
             <Button
               size="icon"
               variant="ghost"
-              className={`cursor-pointer ${isMuted ? "text-red-400 hover:text-red-400" : "text-zinc-400 hover:text-white"}`}
+              className="cursor-pointer text-zinc-400 hover:text-white"
               onClick={handleMuted}
             >
               {isMuted || volume === 0 ? (
@@ -243,16 +247,17 @@ const PlaybackControls = () => {
             </Button>
 
             <Slider
-              value={isMuted ? [0] : [volume]}
+              value={
+                audioRef.current ? [audioRef.current.volume * 100] : [volume]
+              }
               max={100}
               step={1}
-              disabled={isMuted}
               className="group w-24 hover:cursor-pointer sm:w-32"
               onValueChange={(value) => {
+                if (isMuted && value[0] > 0) setIsMuted(false);
+                if (value[0] === 0) setIsMuted(true);
                 setVolume(value[0]);
-                if (audioRef.current) {
-                  audioRef.current.volume = value[0] / 100;
-                }
+                if (audioRef.current) audioRef.current.volume = value[0] / 100;
               }}
             />
           </div>
