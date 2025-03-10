@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Music, Upload } from "lucide-react";
+import { Music } from "lucide-react";
 import SongsTable from "./SongsTable";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import AddSongDialog from "./AddSongDialog";
 
 const SongsTabContent = () => {
   return (
@@ -24,10 +24,7 @@ const SongsTabContent = () => {
             </CardTitle>
             <CardDescription>Administra tus pistas de música</CardDescription>
           </div>
-          <Button>
-            <Upload />
-            <span className="hidden md:inline-block">Sube una canción</span>
-          </Button>
+          <AddSongDialog />
         </div>
       </CardHeader>
       <CardContent>
