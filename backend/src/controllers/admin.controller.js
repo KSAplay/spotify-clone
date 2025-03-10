@@ -74,7 +74,7 @@ export const deleteSong = async (req, res, next) => {
 
 export const createAlbum = async (req, res, next) => {
   try {
-    const { title, artist, releaseYear } = req.body;
+    const { title, artist, releaseYear, coverColor } = req.body;
     const { imageFile } = req.files;
 
     const imageUrl = await uploadToCloudinary(imageFile);
@@ -84,6 +84,7 @@ export const createAlbum = async (req, res, next) => {
       artist,
       releaseYear,
       imageUrl,
+      coverColor,
     });
 
     await album.save();
