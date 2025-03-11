@@ -199,7 +199,7 @@ const AddAlbumDialog = () => {
 
             <div className="relative mt-1 w-full rounded-lg bg-zinc-800 p-2">
               <div
-                className="h-10 w-full cursor-pointer rounded-lg"
+                className="h-10 w-full cursor-pointer rounded-md"
                 style={{ background: coverColor }}
                 onClick={() => setIsPickerOpen(true)}
               />
@@ -220,6 +220,7 @@ const AddAlbumDialog = () => {
           <Button
             variant="outline"
             onClick={() => setAlbumDialogOpen(false)}
+            className="cursor-pointer"
             disabled={isLoading}
           >
             Cancelar
