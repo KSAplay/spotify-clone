@@ -61,7 +61,6 @@ const AddSongDialog = () => {
       }
 
       const formData = new FormData();
-
       formData.append("title", newSong.title);
       formData.append("artist", newSong.artist);
       formData.append("duration", newSong.duration);
@@ -91,10 +90,11 @@ const AddSongDialog = () => {
         image: null,
       });
 
-      toast.success("Canción añadida exitosamente");
-      fetchSongs();
-      fetchAlbums();
       setSongDialogOpen(false);
+      toast.success("Canción añadida exitosamente");
+
+      fetchAlbums();
+      fetchSongs();
     } catch (error: any) {
       toast.error("Error al añadir la canción: " + error.message);
     } finally {
@@ -116,8 +116,8 @@ const AddSongDialog = () => {
   return (
     <Dialog open={songDialogOpen} onOpenChange={setSongDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="cursor-pointer bg-green-400 text-black hover:bg-green-500">
-          <Plus className="h-4 w-4 md:mr-2" />
+        <Button className="cursor-pointer bg-emerald-500 text-black hover:bg-emerald-600">
+          <Plus className="size-4 md:mr-2" />
           <span className="hidden md:inline-block">Añadir Canción</span>
         </Button>
       </DialogTrigger>
@@ -151,17 +151,17 @@ const AddSongDialog = () => {
             }
           />
 
-          {/* image upload area */}
+          {/* Image Upload */}
           <div
             className="flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-zinc-700 p-6"
             onClick={() => imageInputRef.current?.click()}
           >
             <div className="text-center">
               {files.image ? (
-                <div className="h- relative">
+                <div className="relative">
                   <img
                     src={URL.createObjectURL(files.image)}
-                    alt="Preview"
+                    alt="Vista previa"
                     className="max-h-80 rounded-lg"
                   />
                   <Button
@@ -172,13 +172,13 @@ const AddSongDialog = () => {
                       setFiles((prev) => ({ ...prev, image: null }))
                     }
                   >
-                    <X className="h-4 w-4" />
+                    <X className="size-4" />
                   </Button>
                 </div>
               ) : (
                 <>
                   <div className="mb-2 inline-block rounded-full bg-zinc-800 p-3">
-                    <Upload className="h-6 w-6 text-zinc-400" />
+                    <Upload className="size-6 text-zinc-400" />
                   </div>
                   <div className="mb-2 text-sm text-zinc-400">
                     Subir portada
@@ -198,7 +198,7 @@ const AddSongDialog = () => {
           {/* Audio upload */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Archivo de Audio</label>
-            <div className="flex items-center gap-2">
+            <div className="mt-1 flex items-center gap-2">
               <Button
                 variant="outline"
                 onClick={() => audioInputRef.current?.click()}
@@ -219,7 +219,7 @@ const AddSongDialog = () => {
               onChange={(e) =>
                 setNewSong({ ...newSong, title: e.target.value })
               }
-              className="border-zinc-700 bg-zinc-800"
+              className="mt-1 border-zinc-700 bg-zinc-800"
             />
           </div>
 
@@ -230,7 +230,7 @@ const AddSongDialog = () => {
               onChange={(e) =>
                 setNewSong({ ...newSong, artist: e.target.value })
               }
-              className="border-zinc-700 bg-zinc-800"
+              className="mt-1 border-zinc-700 bg-zinc-800"
             />
           </div>
 
@@ -242,7 +242,7 @@ const AddSongDialog = () => {
                 setNewSong({ ...newSong, album: value })
               }
             >
-              <SelectTrigger className="w-full cursor-pointer border-zinc-700 bg-zinc-800">
+              <SelectTrigger className="mt-1 w-full cursor-pointer border-zinc-700 bg-zinc-800">
                 <SelectValue placeholder="Select album" />
               </SelectTrigger>
               <SelectContent className="border-zinc-700 bg-zinc-800">
@@ -274,8 +274,14 @@ const AddSongDialog = () => {
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={isLoading}
-            className="cursor-pointer"
+            disabled={
+              isLoading ||
+              !files.audio ||
+              !files.image ||
+              !newSong.title ||
+              !newSong.artist
+            }
+            className="cursor-pointer bg-green-500 hover:bg-green-600"
           >
             {isLoading ? "Subiendo..." : "Subir Canción"}
           </Button>
