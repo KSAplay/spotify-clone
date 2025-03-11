@@ -53,6 +53,8 @@ const PlaybackControls = () => {
       setDuration(audio.duration);
     };
 
+    audio.volume = volume / 100;
+
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
 
@@ -67,7 +69,7 @@ const PlaybackControls = () => {
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("ended", handleEnded);
     };
-  }, [currentSong, isPlaying]);
+  }, [currentSong, isPlaying, volume]);
 
   const handleSeek = (value: number[]) => {
     if (audioRef.current) audioRef.current.currentTime = value[0];
