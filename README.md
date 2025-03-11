@@ -120,7 +120,7 @@ spotify-clone/
 - Creación y gestión de playlists
 - Reproducción de canciones
 - Búsqueda avanzada de canciones y artistas (🚧 en desarrollo)
-- Subida y gestión de canciones (🚧 en desarrollo)
+- Subida y gestión de canciones
 - Interfaz de usuario responsiva y moderna
 - Soporte para múltiples idiomas (🚧 en desarrollo)
 - Notificaciones en tiempo real (🚧 en desarrollo)
