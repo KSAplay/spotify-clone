@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/lib/axios';
-import { Message } from '@/types';
+import { Message, User } from '@/types';
 import { create } from 'zustand';
 import { io } from 'socket.io-client';
 
@@ -12,15 +12,17 @@ interface ChatStore {
   onlineUsers: Set<string>;
   userActivities: Map<string, string>;
   messages: Message[];
+  selectedUser: User | null;
 
   fetchUsers: () => Promise<void>;
   initSocket: (userId: string) => void;
   disconnectSocket: () => void;
-  sendMessage: (message: string, receiverId: string) => void;
-  receiveMessage: (message: Message) => void;
+  sendMessage: (receiverId: string, senderId: string, content: string) => void;
+  fetchMessages: (userId: string) => Promise<void>;
+  setSelectedUser: (user: User | null) => void;
 }
 
-const baseURL = "http://localhost:5000";
+const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
 
 const socket = io(baseURL, {
   autoConnect: false, // only connect if user is authenticated
@@ -31,11 +33,14 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   users: [],
   isLoading: false,
   error: null,
-  socket: null,
+  socket: socket,
   isConnected: false,
   onlineUsers: new Set(),
   userActivities: new Map(),
   messages: [],
+  selectedUser: null,
+
+  setSelectedUser: (user) => set({ selectedUser: user }),
 
   fetchUsers: async () => {
     try {
@@ -79,7 +84,15 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       });
 
       socket.on("receive_message", (message: Message) => {
-        set((state) => ({ messages: [...state.messages, message] }));
+        set((state) => ({
+          messages: [...state.messages, message],
+        }));
+      });
+
+      socket.on("message_sent", (message: Message) => {
+        set((state) => ({
+          messages: [...state.messages, message],
+        }));
       });
 
       socket.on("acitivity_updated", ({ userId, activity }) => {
@@ -101,6 +114,21 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     }
   },
 
-  sendMessage: async () => { },
-  receiveMessage: async () => { },
+  sendMessage: async (receiverId, senderId, content) => {
+    const socket = get().socket;
+    if (!socket) return;
+    socket.emit("send_message", { receiverId, senderId, content });
+  },
+
+  fetchMessages: async (userId: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axiosInstance.get(`/users/messages/${userId}`);
+      set({ messages: response.data });
+    } catch (error: any) {
+      set({ error: error.response.data.message });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));
