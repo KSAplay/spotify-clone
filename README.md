@@ -124,8 +124,8 @@ spotify-clone/
 - Interfaz de usuario responsiva y moderna
 - Soporte para múltiples idiomas (🚧 en desarrollo)
 - Notificaciones en tiempo real (🚧 en desarrollo)
-- Visualización de usuarios conectados y lo que están escuchando (🚧 en desarrollo)
-- Chat en tiempo real con otros usuarios (🚧 en desarrollo)
+- Visualización de usuarios conectados y lo que están escuchando
+- Chat en tiempo real con otros usuarios
 - Modo oscuro y claro (🚧 en desarrollo)
 
 ## Contribuciones
