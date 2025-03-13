@@ -68,7 +68,11 @@ const FriendsActivity = () => {
                         </div>
                       </div>
                     ) : (
-                      <div className="mt-1 text-xs text-zinc-400">Inactivo</div>
+                      <div className="mt-1 text-xs text-zinc-400">
+                        {onlineUsers.has(user.clerkId)
+                          ? "En línea"
+                          : "Desconectado"}
+                      </div>
                     )}
                   </div>
                 </div>
