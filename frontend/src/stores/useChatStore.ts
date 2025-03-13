@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { io } from 'socket.io-client';
 
 interface ChatStore {
-  users: any[];
+  users: User[];
   isLoading: boolean;
   error: string | null;
   socket: any;
@@ -22,7 +22,7 @@ interface ChatStore {
   setSelectedUser: (user: User | null) => void;
 }
 
-const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
+const baseURL = "http://localhost:5000";
 
 const socket = io(baseURL, {
   autoConnect: false, // only connect if user is authenticated
@@ -45,7 +45,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   fetchUsers: async () => {
     set({ isLoading: true, error: null });
     try {
-      const response = await axiosInstance.get('/users');
+      const response = await axiosInstance.get("/users");
       set({ users: response.data });
     } catch (error: any) {
       set({ error: error.response.data.message });
@@ -65,7 +65,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         set({ onlineUsers: new Set(users) });
       });
 
-      socket.on("activities", (activities: Map<string, string>) => {
+      socket.on("activities", (activities: [string, string][]) => {
         set({ userActivities: new Map(activities) });
       });
 
@@ -95,7 +95,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         }));
       });
 
-      socket.on("acitivity_updated", ({ userId, activity }) => {
+      socket.on("activity_updated", ({ userId, activity }) => {
         set((state) => {
           const newActivities = new Map(state.userActivities);
           newActivities.set(userId, activity);

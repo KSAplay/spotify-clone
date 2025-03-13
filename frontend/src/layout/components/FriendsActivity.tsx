@@ -33,7 +33,7 @@ const FriendsActivity = () => {
 
             return (
               <div
-                key={user._id}
+                key={user.clerkId}
                 className="group cursor-pointer rounded-md p-3 transition-colors hover:bg-zinc-800/50"
               >
                 <div className="flex items-start gap-3">
@@ -61,10 +61,10 @@ const FriendsActivity = () => {
                     {isPlaying ? (
                       <div className="mt-1">
                         <div className="mt-1 truncate text-sm font-medium text-emerald-400">
-                          {activity.replace("Escuchando ", "").split(" by ")[0]}
+                          {activity.replace("Escuchando ", "").split(" de ")[0]}
                         </div>
                         <div className="truncate text-xs text-zinc-400">
-                          {activity.split(" by ")[1]}
+                          {activity.split(" de ")[1]}
                         </div>
                       </div>
                     ) : (

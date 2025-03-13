@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useChatStore } from "@/stores/useChatStore";
 import { useUser } from "@clerk/clerk-react";
-import { Send } from "lucide-react";
+import { SendHorizontal } from "lucide-react";
 import { useState } from "react";
 
 const MessageInput = () => {
@@ -20,7 +20,7 @@ const MessageInput = () => {
     <div className="mt-auto border-t border-zinc-800 p-4">
       <div className="flex gap-2">
         <Input
-          placeholder="Escribe un mensaje..."
+          placeholder="Escriba un mensaje..."
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           className="border-none bg-zinc-800"
@@ -32,7 +32,7 @@ const MessageInput = () => {
           onClick={handleSend}
           disabled={!newMessage.trim()}
         >
-          <Send className="size-4" />
+          <SendHorizontal className="size-4" />
         </Button>
       </div>
     </div>
