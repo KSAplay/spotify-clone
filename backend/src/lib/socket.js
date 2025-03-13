@@ -9,20 +9,22 @@ export const initializeSocket = (server) => {
     },
   });
 
-  const userSockets = new Map(); // { userId: socketId }
-  const userActivities = new Map(); // { userId: activity }
+  const userSockets = new Map();
+  const userActivities = new Map();
 
   io.on("connection", (socket) => {
     socket.on("user_connected", (userId) => {
       userSockets.set(userId, socket.id);
       userActivities.set(userId, "Inactivo");
+
       io.emit("user_connected", userId);
+
       socket.emit("users_online", Array.from(userSockets.keys()));
+
       io.emit("activities", Array.from(userActivities.entries()));
     });
 
     socket.on("update_activity", (userId, activity) => {
-      console.log("actividad actualizada ", userId, activity);
       userActivities.set(userId, activity);
       io.emit("activity_updated", { userId, activity });
     });
