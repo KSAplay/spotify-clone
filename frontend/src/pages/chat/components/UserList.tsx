@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChatStore } from "@/stores/useChatStore";
 
 const UserList = () => {
-  const { users, selectedUser, isLoading, setSelectedUser, onlineUsers } =
+  const { users, selectedUser, isLoadingUsers, setSelectedUser, onlineUsers } =
     useChatStore();
 
   return (
@@ -12,7 +12,7 @@ const UserList = () => {
       <div className="flex h-full flex-col">
         <ScrollArea className="h-[calc(100vh-280px)]">
           <div className="space-y-2 p-4">
-            {isLoading ? (
+            {isLoadingUsers ? (
               <UsersListSkeleton />
             ) : (
               users.map((user) => (

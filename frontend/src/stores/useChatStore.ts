@@ -5,7 +5,8 @@ import { io } from 'socket.io-client';
 
 interface ChatStore {
   users: User[];
-  isLoading: boolean;
+  isLoadingUsers: boolean;
+  isLoadingMessages: boolean;
   error: string | null;
   socket: any;
   isConnected: boolean;
@@ -31,7 +32,8 @@ const socket = io(baseURL, {
 
 export const useChatStore = create<ChatStore>((set, get) => ({
   users: [],
-  isLoading: false,
+  isLoadingUsers: false,
+  isLoadingMessages: false,
   error: null,
   socket: socket,
   isConnected: false,
@@ -43,14 +45,14 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   setSelectedUser: (user) => set({ selectedUser: user }),
 
   fetchUsers: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingUsers: true, error: null });
     try {
       const response = await axiosInstance.get("/users");
       set({ users: response.data });
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingUsers: false });
     }
   },
 
@@ -121,14 +123,14 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   },
 
   fetchMessages: async (userId: string) => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingMessages: true, error: null });
     try {
       const response = await axiosInstance.get(`/users/messages/${userId}`);
       set({ messages: response.data });
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingMessages: false });
     }
   },
 }));

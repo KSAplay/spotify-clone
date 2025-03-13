@@ -8,17 +8,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { formatDate } from "@/utils/formatDate";
 import MessageInput from "./components/MessageInput";
+import MessagesSkeleton from "@/components/skeletons/MessagesSkeleton";
 
 const ChatPage = () => {
   const { user } = useUser();
-  const { messages, selectedUser, fetchUsers, fetchMessages, users } =
-    useChatStore();
+  const {
+    messages,
+    isLoadingMessages,
+    selectedUser,
+    fetchUsers,
+    fetchMessages,
+  } = useChatStore();
 
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers, user]);
-
-  console.log({ users });
 
   useEffect(() => {
     if (selectedUser) fetchMessages(selectedUser.clerkId);
@@ -42,33 +46,39 @@ const ChatPage = () => {
               {/* Messages */}
               <ScrollArea className="h-[calc(100vh-340px)]">
                 <div className="space-y-4 p-4">
-                  {messages.map((message) => (
-                    <div
-                      key={message._id}
-                      className={`flex items-start gap-3 ${
-                        message.senderId === user?.id ? "flex-row-reverse" : ""
-                      }`}
-                    >
-                      <Avatar className="size-8">
-                        <AvatarImage
-                          src={
-                            message.senderId === user?.id
-                              ? user.imageUrl
-                              : selectedUser.imageUrl
-                          }
-                        />
-                      </Avatar>
-
+                  {isLoadingMessages ? (
+                    <MessagesSkeleton />
+                  ) : (
+                    messages.map((message) => (
                       <div
-                        className={`max-w-[70%] rounded-lg p-3 ${message.senderId === user?.id ? "bg-green-500" : "bg-zinc-800"} `}
+                        key={message._id}
+                        className={`flex items-start gap-3 ${
+                          message.senderId === user?.id
+                            ? "flex-row-reverse"
+                            : ""
+                        }`}
                       >
-                        <p className="text-sm">{message.content}</p>
-                        <span className="mt-1 block text-xs text-zinc-300">
-                          {formatDate(message.createdAt)}
-                        </span>
+                        <Avatar className="size-8">
+                          <AvatarImage
+                            src={
+                              message.senderId === user?.id
+                                ? user.imageUrl
+                                : selectedUser.imageUrl
+                            }
+                          />
+                        </Avatar>
+
+                        <div
+                          className={`max-w-[70%] rounded-lg p-3 ${message.senderId === user?.id ? "bg-green-500" : "bg-zinc-800"} `}
+                        >
+                          <p className="text-sm">{message.content}</p>
+                          <span className="mt-1 block text-xs text-zinc-300">
+                            {formatDate(message.createdAt)}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </ScrollArea>
 
