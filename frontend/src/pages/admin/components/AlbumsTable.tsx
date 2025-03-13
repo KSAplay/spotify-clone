@@ -12,11 +12,28 @@ import { Calendar, Music, Trash2 } from "lucide-react";
 import { useEffect } from "react";
 
 const AlbumsTable = () => {
-  const { albums, deleteAlbum, fetchAlbums } = useMusicStore();
+  const { albums, isLoadingAlbums, error, deleteAlbum, fetchAlbums } =
+    useMusicStore();
 
   useEffect(() => {
     fetchAlbums();
   }, [fetchAlbums]);
+
+  if (isLoadingAlbums) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="text-zinc-400">Cargando álbumes...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="text-red-400">{error}</div>
+      </div>
+    );
+  }
 
   return (
     <Table>

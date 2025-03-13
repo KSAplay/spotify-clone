@@ -10,7 +10,7 @@ import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const AlbumPage = () => {
   const { albumId } = useParams();
-  const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
+  const { fetchAlbumById, currentAlbum, isLoadingAlbum } = useMusicStore();
   const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
   const [textColor, setTextColor] = useState("#082040FF");
 
@@ -22,7 +22,7 @@ const AlbumPage = () => {
     setTextColor(lightenColor(currentAlbum?.coverColor || "#FFFFFF"));
   }, [setTextColor, currentAlbum]);
 
-  if (isLoading) return null;
+  if (isLoadingAlbum) return null;
 
   const handlePlayAlbum = () => {
     if (!currentAlbum) return;

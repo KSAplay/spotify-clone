@@ -1,14 +1,21 @@
 import SectionGridSkeleton from "@/components/skeletons/SectionGridSkeleton";
 import { Button } from "@/components/ui/button";
 import { Song } from "@/types";
+import { RefreshCcw } from "lucide-react";
 
 interface SectionGridProps {
   title: string;
   songs: Song[];
   isLoading: boolean;
+  updateSongs: () => void;
 }
 
-const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
+const SectionGrid = ({
+  title,
+  songs,
+  isLoading,
+  updateSongs,
+}: SectionGridProps) => {
   if (isLoading) return <SectionGridSkeleton />;
 
   return (
@@ -16,10 +23,12 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-bold sm:text-2xl">{title}</h2>
         <Button
+          onClick={updateSongs}
           variant="link"
-          className="cursor-pointer text-sm text-zinc-400 hover:text-white"
+          className="cursor-pointer gap-2 text-sm text-zinc-400 hover:text-white"
         >
-          Mostrar todo
+          Actualizar
+          <RefreshCcw className="h-4 w-4" />
         </Button>
       </div>
 

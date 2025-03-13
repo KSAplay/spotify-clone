@@ -7,7 +7,14 @@ interface MusicStore {
   albums: Album[];
   songs: Song[];
   stats: Stats;
-  isLoading: boolean;
+  isLoadingDelete: boolean;
+  isLoadingSongs: boolean;
+  isLoadingAlbum: boolean;
+  isLoadingAlbums: boolean;
+  isLoadingStats: boolean;
+  isLoadingFeaturedSongs: boolean;
+  isLoadingMadeForYouSongs: boolean;
+  isLoadingTrendingSongs: boolean;
   error: string | null;
   currentAlbum: Album | null;
   featuredSongs: Song[];
@@ -36,7 +43,14 @@ export const useMusicStore = create<MusicStore>((set) => ({
     totalUsers: 0,
     totalArtists: 0
   },
-  isLoading: false,
+  isLoadingDelete: false,
+  isLoadingSongs: false,
+  isLoadingAlbums: false,
+  isLoadingAlbum: false,
+  isLoadingStats: false,
+  isLoadingFeaturedSongs: false,
+  isLoadingMadeForYouSongs: false,
+  isLoadingTrendingSongs: false,
   error: null,
   currentAlbum: null,
   featuredSongs: [],
@@ -44,7 +58,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
   trendingSongs: [],
 
   fetchAlbums: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingAlbums: true, error: null });
 
     try {
       const response = await axiosInstance.get('/albums');
@@ -52,12 +66,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingAlbums: false });
     }
   },
 
   fetchStats: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingStats: true, error: null });
 
     try {
       const response = await axiosInstance.get('/stats');
@@ -65,12 +79,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingStats: false });
     }
   },
 
   fetchSongs: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingSongs: true, error: null });
 
     try {
       const response = await axiosInstance.get('/songs');
@@ -78,12 +92,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingSongs: false });
     }
   },
 
   fetchAlbumById: async (id) => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingAlbum: true, error: null });
 
     try {
       const response = await axiosInstance.get(`/albums/${id}`);
@@ -91,12 +105,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingAlbum: false });
     }
   },
 
   fetchFeaturedSongs: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingFeaturedSongs: true, error: null });
 
     try {
       const response = await axiosInstance.get('/songs/featured');
@@ -104,12 +118,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingFeaturedSongs: false });
     }
   },
 
   fetchMadeForYouSongs: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingMadeForYouSongs: true, error: null });
 
     try {
       const response = await axiosInstance.get('/songs/made-for-you');
@@ -117,12 +131,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingMadeForYouSongs: false });
     }
   },
 
   fetchTrendingSongs: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingTrendingSongs: true, error: null });
 
     try {
       const response = await axiosInstance.get('/songs/trending');
@@ -130,12 +144,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       set({ error: error.response.data.message });
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingTrendingSongs: false });
     }
   },
 
   deleteSong: async (id) => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingDelete: true, error: null });
     try {
       await axiosInstance.delete(`/admin/songs/${id}`);
 
@@ -147,12 +161,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
       console.log("Error al eliminar la canción", error);
       toast.error("Error al eliminar la canción");
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingDelete: false });
     }
   },
 
   deleteAlbum: async (id) => {
-    set({ isLoading: true, error: null });
+    set({ isLoadingDelete: true, error: null });
     try {
       await axiosInstance.delete(`/admin/albums/${id}`);
       set((state) => ({
@@ -165,7 +179,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
     } catch (error: any) {
       toast.error("Error al eliminar el álbum: " + error.message);
     } finally {
-      set({ isLoading: false });
+      set({ isLoadingDelete: false });
     }
   }
 }));

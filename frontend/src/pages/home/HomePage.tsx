@@ -10,7 +10,8 @@ const HomePage = () => {
     fetchFeaturedSongs,
     fetchMadeForYouSongs,
     fetchTrendingSongs,
-    isLoading,
+    isLoadingMadeForYouSongs,
+    isLoadingTrendingSongs,
     madeForYouSongs,
     trendingSongs,
   } = useMusicStore();
@@ -33,12 +34,14 @@ const HomePage = () => {
             <SectionGrid
               title="Para ti"
               songs={madeForYouSongs}
-              isLoading={isLoading}
+              isLoading={isLoadingMadeForYouSongs}
+              updateSongs={fetchMadeForYouSongs}
             />
             <SectionGrid
               title="Tendencias"
               songs={trendingSongs}
-              isLoading={isLoading}
+              isLoading={isLoadingTrendingSongs}
+              updateSongs={fetchTrendingSongs}
             />
           </div>
         </div>
