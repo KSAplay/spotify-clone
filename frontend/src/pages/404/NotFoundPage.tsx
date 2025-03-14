@@ -25,7 +25,7 @@ export default function NotFoundPage() {
         </div>
 
         {/* Action buttons */}
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             onClick={() => navigate(-1)}
             variant="outline"
