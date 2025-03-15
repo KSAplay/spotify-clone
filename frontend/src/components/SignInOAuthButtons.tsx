@@ -20,9 +20,10 @@ const SignInOAuthButtons = () => {
     <Button
       onClick={signInWithGoogle}
       variant={"secondary"}
-      className="h-11 w-full border-zinc-200 text-white"
+      className="h-11 w-full cursor-pointer border-zinc-200 text-white"
     >
-      Continue with Google
+      <img src="/google.svg" alt="Google" className="mr-1 size-5" />
+      Continuar con Google
     </Button>
   );
 };
