@@ -101,7 +101,7 @@ const PlaybackControls = () => {
   };
 
   return (
-    <footer className="h-20 border-t border-zinc-800 bg-zinc-900 px-4 sm:h-24">
+    <footer className="sticky bottom-0 z-50 h-20 w-full border-t border-zinc-800 bg-zinc-900 px-4 md:relative md:bottom-auto md:h-24">
       <div className="mx-auto flex h-full max-w-[1800px] items-center justify-between">
         {/* currently playing song */}
         <div className="hidden w-[30%] min-w-[180px] items-center gap-4 sm:flex">

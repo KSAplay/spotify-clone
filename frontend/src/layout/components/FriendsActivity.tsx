@@ -3,22 +3,36 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChatStore } from "@/stores/useChatStore";
 import { User } from "@/types";
 import { useUser } from "@clerk/clerk-react";
-import { HeadphonesIcon, Music, Users } from "lucide-react";
+import { HeadphonesIcon, Music, UsersRound } from "lucide-react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const FriendsActivity = () => {
-  const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
+interface FriendsActivityProps {
+  isSidebarOpen?: boolean;
+}
+
+const FriendsActivity = ({ isSidebarOpen = false }: FriendsActivityProps) => {
+  const { users, fetchUsers, onlineUsers, userActivities, setSelectedUser } =
+    useChatStore();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) fetchUsers();
   }, [fetchUsers, user]);
 
+  const handleClickUser = (user: User) => {
+    setSelectedUser(user);
+    navigate("/chat");
+  };
+
   return (
-    <div className="flex h-full flex-col rounded-lg bg-zinc-900">
-      <div className="flex items-center justify-between border-b border-zinc-800 p-4">
+    <div
+      className={`absolute right-0 z-20 flex h-screen w-[300px] flex-col bg-zinc-900 transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 md:rounded-lg ${isSidebarOpen ? "translate-x-0" : "translate-x-[300px]"}`}
+    >
+      <div className="flex items-center justify-between border-b border-white p-4">
         <div className="flex items-center gap-2">
-          <Users className="size-5 shrink-0" />
+          <UsersRound className="size-5 shrink-0" />
           <h2 className="font-semibold">Lo que están escuchando</h2>
         </div>
       </div>
@@ -33,6 +47,7 @@ const FriendsActivity = () => {
 
             return (
               <div
+                onClick={() => handleClickUser(user)}
                 key={user.clerkId}
                 className="group cursor-pointer rounded-md p-3 transition-colors hover:bg-zinc-800/50"
               >

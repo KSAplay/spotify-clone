@@ -8,7 +8,11 @@ import { HomeIcon, Library, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const LeftSidebar = () => {
+interface LeftSidebarProps {
+  isSidebarOpen?: boolean;
+}
+
+const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
   const { albums, fetchAlbums, isLoadingAlbums } = useMusicStore();
 
   useEffect(() => {
@@ -16,9 +20,11 @@ const LeftSidebar = () => {
   }, [fetchAlbums]);
 
   return (
-    <div className="flex h-full flex-col gap-2">
+    <div
+      className={`absolute z-20 flex h-screen w-[300px] flex-col gap-2 transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 ${isSidebarOpen ? "-translate-x-0" : "-translate-x-[400px]"}`}
+    >
       {/* Navigation menu */}
-      <div className="rounded-lg bg-zinc-900 p-4">
+      <div className="bg-zinc-900 p-4 md:rounded-lg">
         <div className="space-y-2">
           <Link
             to={"/"}
@@ -52,11 +58,11 @@ const LeftSidebar = () => {
       </div>
 
       {/* Library section */}
-      <div className="flex-1 rounded-lg bg-zinc-900 p-4">
+      <div className="flex-1 bg-zinc-900 p-4 md:rounded-lg">
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center px-2 text-white">
             <Library className="mr-2 size-5" />
-            <span className="hidden md:inline">Listas de reproducción</span>
+            <span>Listas de reproducción</span>
           </div>
         </div>
 
@@ -77,7 +83,7 @@ const LeftSidebar = () => {
                     className="size-12 flex-shrink-0 rounded-md object-cover"
                   />
 
-                  <div className="hidden min-w-0 flex-1 md:block">
+                  <div className="min-w-0 flex-1">
                     <p className="truncate font-medium">{album.title}</p>
                     <p className="truncate text-sm text-zinc-400">
                       Álbum • {album.artist}

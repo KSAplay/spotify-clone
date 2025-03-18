@@ -24,7 +24,9 @@ const HomePage = () => {
 
   return (
     <main className="h-full overflow-hidden rounded-lg bg-gradient-to-b from-zinc-900 to-zinc-950">
-      <Topbar />
+      <div className="hidden md:block">
+        <Topbar />
+      </div>
       <ScrollArea className="h-full">
         <div className="p-4 sm:p-6">
           <h1 className="mb-6 text-2xl font-bold sm:text-3xl">Buenos días</h1>

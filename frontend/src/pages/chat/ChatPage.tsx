@@ -32,7 +32,9 @@ const ChatPage = () => {
 
   return (
     <main className="h-full overflow-hidden rounded-lg bg-gradient-to-b from-zinc-900 to-zinc-950">
-      <Topbar />
+      <div className="hidden md:block">
+        <Topbar />
+      </div>
 
       <div className="grid h-[calc(100vh-180px)] grid-cols-[80px_1fr] lg:grid-cols-[300px_1fr]">
         <UserList />
