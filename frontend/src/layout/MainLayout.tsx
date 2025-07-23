@@ -26,11 +26,11 @@ const MainLayout = () => {
 
   return (
     <div className="flex h-screen w-full flex-col bg-black text-white">
+      <AudioPlayer />
       {isMobile ? (
         <div className="md:hidden">
           <TopbarMobile />
           <Outlet />
-          <AudioPlayer />
         </div>
       ) : (
         <ResizablePanelGroup
