@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 import { useChatStore } from "@/stores/useChatStore";
 import { User } from "@/types";
 import { useUser } from "@clerk/clerk-react";
@@ -9,9 +10,13 @@ import { useNavigate } from "react-router-dom";
 
 interface FriendsActivityProps {
   isSidebarOpen?: boolean;
+  isMobile?: boolean;
 }
 
-const FriendsActivity = ({ isSidebarOpen = false }: FriendsActivityProps) => {
+const FriendsActivity = ({
+  isSidebarOpen = false,
+  isMobile = false,
+}: FriendsActivityProps) => {
   const { users, fetchUsers, onlineUsers, userActivities, setSelectedUser } =
     useChatStore();
   const { user } = useUser();
@@ -28,9 +33,14 @@ const FriendsActivity = ({ isSidebarOpen = false }: FriendsActivityProps) => {
 
   return (
     <div
-      className={`absolute right-0 z-20 flex h-screen w-[300px] flex-col bg-zinc-900 transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 md:rounded-lg ${isSidebarOpen ? "translate-x-0" : "translate-x-[300px]"}`}
+      className={cn(
+        "flex flex-col bg-zinc-900",
+        isMobile
+          ? "h-full w-full"
+          : `absolute right-0 z-20 h-screen w-[300px] transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 md:rounded-lg ${isSidebarOpen ? "translate-x-0" : "translate-x-[300px]"}`,
+      )}
     >
-      <div className="flex items-center justify-between border-b border-white p-4">
+      <div className="flex items-center justify-between border-b border-zinc-700 p-4">
         <div className="flex items-center gap-2">
           <UsersRound className="size-5 shrink-0" />
           <h2 className="font-semibold">Lo que están escuchando</h2>

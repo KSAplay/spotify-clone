@@ -10,9 +10,10 @@ import { Link } from "react-router-dom";
 
 interface LeftSidebarProps {
   isSidebarOpen?: boolean;
+  isMobile?: boolean;
 }
 
-const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
+const LeftSidebar = ({ isSidebarOpen, isMobile = false }: LeftSidebarProps) => {
   const { albums, fetchAlbums, isLoadingAlbums } = useMusicStore();
 
   useEffect(() => {
@@ -21,10 +22,15 @@ const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
 
   return (
     <div
-      className={`absolute z-20 flex h-screen w-[300px] flex-col gap-2 transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 ${isSidebarOpen ? "-translate-x-0" : "-translate-x-[400px]"}`}
+      className={cn(
+        "flex flex-col gap-2",
+        isMobile
+          ? "h-full w-full"
+          : `absolute z-20 h-screen w-[300px] transition-transform duration-300 md:relative md:h-full md:w-full md:translate-0 ${isSidebarOpen ? "-translate-x-0" : "-translate-x-[400px]"}`,
+      )}
     >
       {/* Navigation menu */}
-      <div className="bg-zinc-900 p-4 md:rounded-lg">
+      <div className={cn("bg-zinc-900 p-4", !isMobile && "md:rounded-lg")}>
         <div className="space-y-2">
           <Link
             to={"/"}
@@ -36,7 +42,9 @@ const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
             )}
           >
             <HomeIcon className="mr-2 size-5" />
-            <span className="hidden md:inline">Inicio</span>
+            <span className={cn(isMobile ? "inline" : "hidden md:inline")}>
+              Inicio
+            </span>
           </Link>
 
           <SignedIn>
@@ -51,14 +59,18 @@ const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
               )}
             >
               <MessageCircle className="mr-2 size-5" />
-              <span className="hidden md:inline">Mensajes</span>
+              <span className={cn(isMobile ? "inline" : "hidden md:inline")}>
+                Mensajes
+              </span>
             </Link>
           </SignedIn>
         </div>
       </div>
 
       {/* Library section */}
-      <div className="flex-1 bg-zinc-900 p-4 md:rounded-lg">
+      <div
+        className={cn("flex-1 bg-zinc-900 p-4", !isMobile && "md:rounded-lg")}
+      >
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center px-2 text-white">
             <Library className="mr-2 size-5" />
@@ -66,7 +78,11 @@ const LeftSidebar = ({ isSidebarOpen }: LeftSidebarProps) => {
           </div>
         </div>
 
-        <ScrollArea className="h-[calc(100vh-300px)]">
+        <ScrollArea
+          className={cn(
+            isMobile ? "h-[calc(100vh-200px)]" : "h-[calc(100vh-300px)]",
+          )}
+        >
           <div className="space-y-2">
             {isLoadingAlbums && albums.length === 0 ? (
               <PlaylistSkeleton />
