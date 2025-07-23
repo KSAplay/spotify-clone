@@ -25,3 +25,15 @@ dist-ssr
 
 # Environment variables
 .env
+
+# Vite specific
+.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+
+# Storybook build outputs
+storybook-static/

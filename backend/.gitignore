@@ -25,3 +25,30 @@ dist-ssr
 
 # Environment variables
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Uploads folder (if you have file uploads)
+uploads/
+temp/
+
+# Cache
+.npm
+.yarn-integrity

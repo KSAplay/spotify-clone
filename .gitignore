@@ -56,7 +56,15 @@ typings/
 
 # Gatsby files
 .cache/
+# public/ - Commented out to allow essential static files
 public/
+!public/*.svg
+!public/*.ico
+!public/*.png
+!public/favicon.ico
+!public/robots.txt
+!public/manifest.json
+!public/_redirects
 
 # vuepress build output
 .vuepress/dist
