@@ -40,23 +40,60 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
 
 ## Configuración
 
-Crea un archivo `.env` en la carpeta `backend` con las siguientes variables de entorno:
+### Variables de Entorno del Backend
 
+Copia el archivo `.env.example` y renómbralo a `.env` en la carpeta `backend`:
+
+```bash
+cp backend/.env.example backend/.env
 ```
-MONGO_URI=tu_mongo_uri
-JWT_SECRET=tu_jwt_secret
-CLOUDINARY_CLOUD_NAME=tu_cloudinary_cloud_name
-CLOUDINARY_API_KEY=tu_cloudinary_api_key
-CLOUDINARY_API_SECRET=tu_cloudinary_api_secret
-ADMIN_EMAIL=tu_admin_email
+
+Luego completa las siguientes variables de entorno:
+
+```env
+# Configuración del entorno
+NODE_ENV="development"
 PORT=5000
+
+# Configuración de Cloudinary para almacenamiento de imágenes
+CLOUDINARY_CLOUD_NAME="tu_cloudinary_cloud_name"
+CLOUDINARY_API_KEY="tu_cloudinary_api_key"
+CLOUDINARY_API_SECRET="tu_cloudinary_api_secret"
+
+# URI de conexión a MongoDB
+MONGODB_URI="tu_mongodb_uri"
+
+# Email del administrador
+ADMIN_EMAIL="tu_email_admin@ejemplo.com"
+
+# Configuración de Clerk para autenticación
+CLERK_PUBLISHABLE_KEY="pk_test_tu_clerk_publishable_key"
+CLERK_SECRET_KEY="sk_test_tu_clerk_secret_key"
 ```
 
-Crea un archivo `.env.local` en la carpeta `frontend` con las siguientes variables de entorno:
+### Variables de Entorno del Frontend
 
+Copia el archivo `.env.example` y renómbralo a `.env.local` en la carpeta `frontend`:
+
+```bash
+cp frontend/.env.example frontend/.env.local
 ```
-VITE_CLERK_PUBLISHABLE_KEY=tu_clerk_publishable_key
+
+Luego completa las siguientes variables de entorno:
+
+```env
+# Configuración del entorno
+MODE=development
+
+# Clave pública de Clerk para autenticación
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_tu_clerk_publishable_key
 ```
+
+### Servicios Requeridos
+
+- **MongoDB**: Base de datos principal
+- **Cloudinary**: Para almacenamiento de imágenes y archivos multimedia
+- **Clerk**: Para sistema de autenticación y gestión de usuarios
 
 ## Ejecución
 
